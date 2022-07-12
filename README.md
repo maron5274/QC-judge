@@ -1,5 +1,6 @@
 ## 環境構築
 node.jsのインストール
+
 [https://nodejs.org/ja/download/](https://nodejs.org/ja/download/)
 
 このレポジトリをクローン
@@ -22,5 +23,7 @@ npm run dev
 
 mainブランチにpushして自動更新
 ```bash
+git add -A
+git commit -m "any message"
 git push origin main
 ```
