@@ -6,9 +6,10 @@ import axios from 'axios';
 
 export default function Home() {
   const [file, setFile] = useState();
+  const [response, setResponse] = useState();
 
   const sendFile = async () => {
-    let formData = new FormData()
+    let formData = new FormData();
     formData.append('file', file);
 
     const res = await axios.get('http://localhost:8000/');
@@ -19,6 +20,7 @@ export default function Home() {
       }
     });
     console.log(res2.data.lines);
+    setResponse(res2.data.lines);
   }
 
   return (
@@ -36,6 +38,7 @@ export default function Home() {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <button onClick={sendFile}>upload</button>
+        <p>{response}</p>
       </main>
 
       <footer className={styles.footer}>
