@@ -17,7 +17,16 @@ npm install
 ```bash
 npm run dev
 ```
-
+### fastAPI
+uvicornのインストール
+```bash
+pip install fastapi uvicorn
+```
+起動
+```bash
+cd ./pages/api
+uvicorn apiTest:app
+```
 ## デプロイ
 [https://maron5274.github.io/QC-judge/](https://maron5274.github.io/QC-judge/)に公開
 
