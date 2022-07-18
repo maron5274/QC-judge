@@ -9,19 +9,16 @@ export default function Home() {
 
   const sendFile = async () => {
     let formData = new FormData()
-    formData.append('file1', file);
+    formData.append('file', file);
 
     const res = await axios.get('http://localhost:8000/');
-    console.log(res.data);
 
-    const res2 = await axios.request({ 
-      method: 'post',
-      url: 'http://localhost:8000/file',
-      body: {
-        'file': file
+    const res2 = await axios.post('http://localhost:8000/file', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
       }
     });
-    console.log(res2);
+    console.log(res2.data.lines);
   }
 
   return (
