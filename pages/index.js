@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export default function Home() {
   const [file, setFile] = useState();
-  const [response, setResponse] = useState();
+  const [response, setResponse] = useState('We wish for your success!!');
 
   const sendFile = async () => {
     let formData = new FormData();
@@ -21,6 +21,16 @@ export default function Home() {
     });
     console.log(res2.data);
     setResponse(res2.data.QC);
+  }
+
+  const message = (response) => {
+    if (response >= 0.99) {
+      return ('QC existence');
+    }else if (response < 0.99) {
+      return ('QC absence');
+    }else {
+      return ('');
+    }
   }
 
   return (
@@ -38,6 +48,7 @@ export default function Home() {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <button onClick={sendFile}>upload</button>
+        <p>{message(response)}</p>
         <p>{response}</p>
       </main>
 
