@@ -19,8 +19,8 @@ export default function Home() {
         'Content-Type': 'multipart/form-data'
       }
     });
-    console.log(res2.data.lines);
-    setResponse(res2.data.lines);
+    console.log(res2.data);
+    setResponse(res2.data.QC);
   }
 
   return (
