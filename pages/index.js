@@ -13,7 +13,7 @@ export default function Home() {
     formData.append('file', file);
 
     const res = await axios.get('http://localhost:8000/');
-
+    setResponse('loading...');
     const res2 = await axios.post('http://localhost:8000/file', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
