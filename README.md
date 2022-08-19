@@ -25,7 +25,7 @@ pip install fastapi uvicorn
 起動
 ```bash
 cd ./pages/api
-uvicorn apiTest:app
+uvicorn apiTest_predict:app
 ```
 
 ## デプロイ

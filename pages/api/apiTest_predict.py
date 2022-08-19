@@ -16,7 +16,8 @@ def get_file(response: Response, file: bytes = File(...)):
     content = file.decode('utf-8')
     lines = content.split('\n')
     lines = lines[0].split('\r')
-    model_name = 'G:/MLmodels_for_PXRDidentification/PiQC_detection_screening/Models/5.025_5.05__12__256'
+    model_name = 'C:/Users/maron/5.0_5.025__12__256'
+    # model_name = 'G:/MLmodels_for_PXRDidentification/PiQC_detection_screening/Models/5.025_5.05__12__256'
     load_model = tf.keras.models.load_model(model_name, compile=False)
     list_ = []
     for i in lines:
