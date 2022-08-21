@@ -1,24 +1,25 @@
 import Head from 'next/head'
 import { useState } from 'react'
-// import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import axios from 'axios';
 
 export default function Home() {
-  const [file, setFile] = useState();
+  const [files, setFiles] = useState();
   const [response, setResponse] = useState('We wish for your success!!');
 
   const sendFile = async () => {
-    let formData = new FormData();
-    formData.append('file', file);
     setResponse('loading...');
+    let formData = new FormData();
+    for (let i = 0; i < files.length; i ++) {
+      formData.append("files", files[i]);
+    }
     const res = await axios.post('http://localhost:8000/file', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     });
-    console.log(res.data);
-    setResponse(res.data.QC);
+    console.log(res);
+    // setResponse(res.data.QC);
   }
 
   const message = (response) => {
@@ -43,7 +44,9 @@ export default function Home() {
         <input
           type="file"
           id="avatarInput"
-          onChange={(e) => setFile(e.target.files[0])}
+          onChange={(e) => setFiles(e.target.files)}
+          directory=""
+          webkitdirectory=""
         />
         <button onClick={sendFile}>upload</button>
         <p>{message(response)}</p>
