@@ -33,3 +33,5 @@ yarn-error.log*
 
 .next
 out
+model
+apiTest_predict.cpython-37.pyc
