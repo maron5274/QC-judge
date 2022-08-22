@@ -27,15 +27,15 @@ export default function Home() {
       console.log(res);
 
       const data = [];
-      data.push({ key: 1, samplename: 'TierA', value: '', aico: '' });
+      data.push({ key: 0, samplename: 'TierA', value: '', aico: '' });
       res.data[0].map((list) => {
         data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
       });
-      data.push({ key: 1, samplename: 'TierB', value: '', aico: '' });
+      data.push({ key: 0, samplename: 'TierB', value: '', aico: '' });
       res.data[1].map((list) => {
         data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
       });
-      data.push({ key: 1, samplename: 'TierC', value: '', aico: '' });
+      data.push({ key: 0, samplename: 'TierC', value: '', aico: '' });
       res.data[2].map((list) => {
         data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
       });
