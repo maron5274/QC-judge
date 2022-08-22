@@ -43,6 +43,10 @@ export default function Home() {
     }
   }
 
+  const drawFig = (record) => {
+    console.log(record.samplename);
+  }
+
   const columns = [
     {
       title: 'Samplename',
@@ -87,6 +91,11 @@ export default function Home() {
               pagination={false}
               scroll={{
                 y: 240,
+              }}
+              onRow={(record, rowIndex) => {
+                return {
+                  onClick: event => { drawFig(record) }
+                };
               }}
             />
           </div>

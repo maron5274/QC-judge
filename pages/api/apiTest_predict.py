@@ -15,7 +15,7 @@ def read_root(response: Response):
 async def get_file(response: Response, files: List[UploadFile]):
     response.headers["Access-Control-Allow-Origin"] = "*"
 
-    path_exptdata = 'C:/Users/maron/models/'
+    path_model = 'C:/Users/maron/models/'
 
     files_dic = {}
     for file in files:
@@ -40,28 +40,6 @@ async def get_file(response: Response, files: List[UploadFile]):
             if 20 <= tth <80:
                 Intensity = float(a[1])
                 list_.append(Intensity)
-        
-        # try:
-        #     lines = content.split('\n')
-        #     lines = lines[0].split('\r')
-        #     for i in lines:
-        #         a = i[:-1].split(' ')
-        #         tth = float(a[0])
-        #         if 20 <= tth <80:
-        #             Intensity = float(a[1])
-        #             list_.append(Intensity)
-        # except:
-        #     lines = content.split('\r\n')
-        #     for i in lines:
-        #         a = i[:-1].split(' ')
-        #         #list_.append(a[0])
-        #         try:
-        #             tth = float(a[0])
-        #             if 20 <= tth <80:
-        #                 Intensity = float(a[1])
-        #                 list_.append(Intensity)
-        #         except:
-        #             pass
 
         data_num = 1
         x_test = np.array([list_], np.float64)
