@@ -77,9 +77,8 @@ async def get_file(response: Response, files: List[UploadFile]):
     dic_detection = {"A": [], "B": [], "C": []}
     list__=[]
     for i in range(2):
-        aico += 0.025*i
         tf.keras.backend.clear_session()
-        load_model = tf.keras.models.load_model(path_exptdata+str(aico)+'_'+str(round(aico+aico_delta, 3))+'__'+str(12)+'__'+str(256), compile=False)
+        load_model = tf.keras.models.load_model(path_exptdata+str(aico+aico_delta*i)+'_'+str(round(aico+aico_delta*(i+1), 3))+'__'+str(12)+'__'+str(256), compile=False)
         for file_name in files_dic:
             x_testt = files_dic[file_name]
             pred = load_model.predict(x_testt)[0][1]
@@ -125,4 +124,4 @@ async def get_file(response: Response, files: List[UploadFile]):
     num_Adata, num_Bdata, num_Cdata = len(dicA_sorted)+dic_None['A'], len(dicB_sorted)+dic_None['B'], len(dicC_sorted)+dic_None['C']
 
     #return [num_Adata, dicA_sorted],[num_Bdata, dicB_sorted], [num_Cdata, dicC_sorted]
-    return dicA_sorted, dicB_sorted, dicC_sorted
+    return dicA_sorted, dicB_sorted, dicC_sorted, num_Adata, num_Bdata, num_Cdata

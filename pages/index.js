@@ -9,6 +9,9 @@ export default function Home() {
   const [files, setFiles] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [numA, setNumA] = useState('');
+  const [numB, setNumB] = useState('');
+  const [numC, setNumC] = useState('');
 
   const sendFile = async () => {
     if (files.length === 0) {
@@ -40,14 +43,17 @@ export default function Home() {
         data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
       });
       setTableData(data);
+      setNumA(res.data[3])
+      setNumB(res.data[4])
+      setNumC(res.data[5])
     }
   }
 
   const columns = [
     {
-      title: 'Samplename',
+      title: 'Sample name',
       dataIndex: 'samplename',
-      width: 150,
+      width: 400,
       render(text, record) {
         return {
           props: {
@@ -58,7 +64,7 @@ export default function Home() {
       }
     },
     {
-      title: 'Value',
+      title: 'Prediction value',
       dataIndex: 'value',
       width: 150,
       render(text, record) {
@@ -71,8 +77,9 @@ export default function Home() {
       }
     },
     {
-      title: 'aico[Å]',
+      title: 'Lattice constant [Å]',
       dataIndex: 'aico',
+      width: 150,
       render(text, record) {
         return {
           props: {
@@ -87,7 +94,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>high-thoroughput-QC-detection</title>
+        <title>HTPI-iQC</title>
       </Head>
 
       <main>
@@ -104,15 +111,19 @@ export default function Home() {
           />
           <button onClick={sendFile}>upload</button>
           <p style={{ color: 'red' }}>{errorMessage}</p>
+          <h2>　Results</h2>
           <div className={styles.tableWrapper}>
             <Table
               columns={columns}
               dataSource={tableData}
               pagination={false}
               scroll={{
-                y: 240,
+                y: 400,
               }}
             />
+          <h3>　TierA: {numA} data</h3>
+          <h3>　TierB: {numB} data</h3>
+          <h3>　TierC: {numC} data</h3>
           </div>
         </div>
       </main>
