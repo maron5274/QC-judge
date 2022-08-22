@@ -142,7 +142,7 @@ export default function Home() {
               pagination={false}
               size="middle"
               scroll={{
-                y: 400,
+                y: 350,
               }}
             />
 

@@ -14,5 +14,12 @@
 }
 
 .tableWrapper p{
-  font-size: 15px
+  font-size: 15px;
+  line-height: 2;
+}
+
+.tableWrapper Table{
+  padding: 5px;
+  background-color: rgb(235, 235, 235);
+  font-size: 15px;
 }
