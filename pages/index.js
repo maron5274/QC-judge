@@ -8,10 +8,12 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
   const [files, setFiles] = useState([]);
   const [tableData, setTableData] = useState([]);
+  const [tableData2, setTableData2] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [numA, setNumA] = useState('');
   const [numB, setNumB] = useState('');
   const [numC, setNumC] = useState('');
+  const [numError, setNumError] = useState('');
 
   const sendFile = async () => {
     if (files.length === 0) {
@@ -43,9 +45,16 @@ export default function Home() {
         data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
       });
       setTableData(data);
-      setNumA(`　TierA: ${res.data[3]} data`)
-      setNumB(`　TierB: ${res.data[4]} data`)
-      setNumC(`　TierC: ${res.data[5]} data`)
+      setNumA(`　TierA> ${res.data[3]} data`)
+      setNumB(`　TierB> ${res.data[4]} data`)
+      setNumC(`　TierC> ${res.data[5]} data`)
+      setNumError(`　Error files> ${res.data[6].length} data`)
+
+      const data2 = [];
+      res.data[6].map((list) => {
+        data2.push({ key: 0, samplename: list});
+      });
+      setTableData2(data2);
     }
   }
 
@@ -91,6 +100,14 @@ export default function Home() {
     },
   ];
 
+  const columns2 = [
+    {
+      title: 'Error files',
+      dataIndex: 'samplename',
+      width: 400,
+    }
+  ];
+
   return (
     <>
       <Head>
@@ -121,9 +138,21 @@ export default function Home() {
                 y: 400,
               }}
             />
-          <h3>{numA}</h3>
-          <h3>{numB}</h3>
-          <h3>{numC}</h3>
+
+            <h3>{numA}</h3>
+            <h3>{numB}</h3>
+            <h3>{numC}</h3>
+
+            <Table
+              columns={columns2}
+              dataSource={tableData2}
+              pagination={false}
+              scroll={{
+                y: 400,
+              }}
+            />
+            <h3>{numError}</h3>
+
           </div>
         </div>
       </main>
