@@ -43,9 +43,9 @@ export default function Home() {
         data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
       });
       setTableData(data);
-      setNumA(res.data[3])
-      setNumB(res.data[4])
-      setNumC(res.data[5])
+      setNumA(`　TierA: ${res.data[3]} data`)
+      setNumB(`　TierB: ${res.data[4]} data`)
+      setNumC(`　TierC: ${res.data[5]} data`)
     }
   }
 
@@ -121,9 +121,9 @@ export default function Home() {
                 y: 400,
               }}
             />
-          <h3>　TierA: {numA} data</h3>
-          <h3>　TierB: {numB} data</h3>
-          <h3>　TierC: {numC} data</h3>
+          <h3>{numA}</h3>
+          <h3>{numB}</h3>
+          <h3>{numC}</h3>
           </div>
         </div>
       </main>
