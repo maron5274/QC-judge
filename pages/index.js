@@ -52,15 +52,39 @@ export default function Home() {
       title: 'Samplename',
       dataIndex: 'samplename',
       width: 150,
+      render(text, record) {
+        return {
+          props: {
+            style: { background: text == "TierA" || text == "TierB" || text == "TierC" ? "yellow" : "" }
+          },
+          children: <div>{text}</div>
+        };
+      }
     },
     {
       title: 'Value',
       dataIndex: 'value',
       width: 150,
+      render(text, record) {
+        return {
+          props: {
+            style: { background: text == "" || text == "" || text == "" ? "yellow" : "" }
+          },
+          children: <div>{text}</div>
+        };
+      }
     },
     {
       title: 'aico[Å]',
       dataIndex: 'aico',
+      render(text, record) {
+        return {
+          props: {
+            style: { background: text == "" || text == "" || text == "" ? "yellow" : "" }
+          },
+          children: <div>{text}</div>
+        };
+      }
     },
   ];
 
@@ -72,7 +96,7 @@ export default function Home() {
 
       <main>
         <div className={styles.header}>
-          <h1>HTPI-QC</h1>
+          <h1>HTPI-iQC: High-throughput phase identification to detect iQC</h1>
         </div>
         <div className={styles.body}>
           <input
