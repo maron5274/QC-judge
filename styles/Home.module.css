@@ -5,9 +5,10 @@
 }
 
 .body {
-  padding-top: 30px;
+  padding-top: 20px;
 }
 
 .tableWrapper {
   width: 50%;
+  padding-bottom: 10px;
 }

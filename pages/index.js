@@ -66,7 +66,9 @@ export default function Home() {
       render(text, record) {
         return {
           props: {
-            style: { background: text == "TierA" || text == "TierB" || text == "TierC" ? "yellow" : "" }
+            style: { background: text == "TierA" || text == "TierB" || text == "TierC" ? "yellow" : "" ,
+                     height: text == "TierA" || text == "TierB" || text == "TierC" ? "1px" : "60px"
+                   }
           },
           children: <div>{text}</div>
         };
@@ -79,7 +81,9 @@ export default function Home() {
       render(text, record) {
         return {
           props: {
-            style: { background: text == "" || text == "" || text == "" ? "yellow" : "" }
+            style: { background: text == "" || text == "" || text == "" ? "yellow" : "" ,
+                     height: text == "" || text == "" || text == "" ? "1px" : "60px"
+                   }
           },
           children: <div>{text}</div>
         };
@@ -92,7 +96,9 @@ export default function Home() {
       render(text, record) {
         return {
           props: {
-            style: { background: text == "" || text == "" || text == "" ? "yellow" : "" }
+            style: { background: text == "" || text == "" || text == "" ? "yellow" : "" ,
+                     height: text == "" || text == "" || text == "" ? "1px" : "60px"
+                   }
           },
           children: <div>{text}</div>
         };
@@ -134,6 +140,7 @@ export default function Home() {
               columns={columns}
               dataSource={tableData}
               pagination={false}
+              size="middle"
               scroll={{
                 y: 400,
               }}
@@ -147,13 +154,15 @@ export default function Home() {
               columns={columns2}
               dataSource={tableData2}
               pagination={false}
+              size="middle"
               scroll={{
                 y: 150,
               }}
             />
-            <h4>{numError}</h4>
+
 
           </div>
+          <h4>{numError}</h4>
         </div>
       </main>
     </>
