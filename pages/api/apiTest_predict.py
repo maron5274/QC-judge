@@ -88,11 +88,11 @@ async def get_file(response: Response, files: List[UploadFile]):
                 continue
 
             if 0.95 <= pred < 0.99:
-                dic_detection['C'].append([file_name, pred, aico])
+                dic_detection['C'].append([file_name, pred, aico+aico_delta*i])
             elif 0.99 <= pred < 0.999:
-                dic_detection['B'].append([file_name, pred, aico])
+                dic_detection['B'].append([file_name, pred, aico+aico_delta*i])
             else:
-                dic_detection['A'].append([file_name, pred, aico])
+                dic_detection['A'].append([file_name, pred, aico+aico_delta*i])
 
     sortsecond = lambda val : val[1]
     dicA_sorted = sorted(dic_detection['A'], key = sortsecond, reverse = True)
