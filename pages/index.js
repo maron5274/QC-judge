@@ -104,7 +104,7 @@ export default function Home() {
     {
       title: 'Error files',
       dataIndex: 'samplename',
-      width: 400,
+      width: 200,
     }
   ];
 
@@ -116,7 +116,7 @@ export default function Home() {
 
       <main>
         <div className={styles.header}>
-          <h1>HTPI-iQC: High-throughput phase identification to detect iQC</h1>
+          <h1>HTPI-iQC: High-Throughput Phase Identification to detect iQC</h1>
         </div>
         <div className={styles.body}>
           <input
@@ -139,19 +139,19 @@ export default function Home() {
               }}
             />
 
-            <h3>{numA}</h3>
-            <h3>{numB}</h3>
-            <h3>{numC}</h3>
+            <h4>{numA}</h4>
+            <h4>{numB}</h4>
+            <h4>{numC}</h4>
 
             <Table
               columns={columns2}
               dataSource={tableData2}
               pagination={false}
               scroll={{
-                y: 400,
+                y: 150,
               }}
             />
-            <h3>{numError}</h3>
+            <h4>{numError}</h4>
 
           </div>
         </div>

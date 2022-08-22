@@ -85,7 +85,7 @@ async def get_file(response: Response, files: List[UploadFile]):
     list__=[]
     for i in range(2):
         tf.keras.backend.clear_session()
-        load_model = tf.keras.models.load_model(path_exptdata+str(aico+aico_delta*i)+'_'+str(round(aico+aico_delta*(i+1), 3))+'__'+str(12)+'__'+str(256), compile=False)
+        load_model = tf.keras.models.load_model(path_exptdata+str(round(aico+aico_delta*i, 3))+'_'+str(round(aico+aico_delta*(i+1), 3))+'__'+str(12)+'__'+str(256), compile=False)
         for file_name in files_dic:
             try:
                 x_testt = files_dic[file_name]
@@ -96,11 +96,11 @@ async def get_file(response: Response, files: List[UploadFile]):
                     continue
 
                 if 0.95 <= pred < 0.99:
-                    dic_detection['C'].append([file_name, pred, aico+aico_delta*i])
+                    dic_detection['C'].append([file_name, pred, round(aico+aico_delta*i, 3)])
                 elif 0.99 <= pred < 0.999:
-                    dic_detection['B'].append([file_name, pred, aico+aico_delta*i])
+                    dic_detection['B'].append([file_name, pred, round(aico+aico_delta*i, 3)])
                 else:
-                    dic_detection['A'].append([file_name, pred, aico+aico_delta*i])
+                    dic_detection['A'].append([file_name, pred, round(aico+aico_delta*i, 3)])
             except:
                 error_files.append(file_name)
 
