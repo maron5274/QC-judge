@@ -51,7 +51,7 @@ export default function Home() {
       render(text, record) {
         return {
           props: {
-            style: { background: text == "TierA" || text == "TierB" || text == "TierC" ? "yellow" : "white" }
+            style: { background: text == "TierA" || text == "TierB" || text == "TierC" ? "yellow" : "" }
           },
           children: <div>{text}</div>
         };
@@ -64,7 +64,7 @@ export default function Home() {
       render(text, record) {
         return {
           props: {
-            style: { background: text == "" || text == "" || text == "" ? "yellow" : "white" }
+            style: { background: text == "" || text == "" || text == "" ? "yellow" : "" }
           },
           children: <div>{text}</div>
         };
@@ -76,7 +76,7 @@ export default function Home() {
       render(text, record) {
         return {
           props: {
-            style: { background: text == "" || text == "" || text == "" ? "yellow" : "white" }
+            style: { background: text == "" || text == "" || text == "" ? "yellow" : "" }
           },
           children: <div>{text}</div>
         };
