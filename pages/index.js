@@ -146,9 +146,9 @@ export default function Home() {
               }}
             />
 
-            <h4>{numA}</h4>
-            <h4>{numB}</h4>
-            <h4>{numC}</h4>
+            <p>{numA}</p>
+            <p>{numB}</p>
+            <p>{numC}</p>
 
             <Table
               columns={columns2}
@@ -159,10 +159,10 @@ export default function Home() {
                 y: 150,
               }}
             />
-
+            <p>{numError}</p>
 
           </div>
-          <h4>{numError}</h4>
+
         </div>
       </main>
     </>

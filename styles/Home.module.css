@@ -10,5 +10,9 @@
 
 .tableWrapper {
   width: 50%;
-  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.tableWrapper p{
+  font-size: 15px
 }
