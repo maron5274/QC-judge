@@ -17,8 +17,8 @@ def read_root(response: Response):
 async def get_file(response: Response, files: List[UploadFile]):
     response.headers["Access-Control-Allow-Origin"] = "*"
 
-    path_model = 'C:/Users/maron/qc-data/models/'
-    # path_exptdata = 'D:/MLmodels_for_PXRDidentification/PiQC_detection_screening/Models/'
+    #path_model = 'C:/Users/maron/qc-data/models/'
+    path_model = 'D:/MLmodels_for_PXRDidentification/PiQC_detection_screening/Models/'
 
     error_files = []
 
@@ -26,8 +26,8 @@ async def get_file(response: Response, files: List[UploadFile]):
     for file in files:
         file_name = file.filename
         file_name = file_name.split('/')[-1]
-        path = f'C:/Users/maron/qc-data/text/{file_name}'
-        # path = f'C:/Users/Hiro/PXRD_HiguchiLab/{file_name}'
+        #path = f'C:/Users/maron/qc-data/text/{file_name}'
+        path = f'C:/Users/Hiro/fastapi/QC-judge/text_folda/{file_name}'
         try:
             with open(path, 'w+b') as buffer:
                 shutil.copyfileobj(file.file, buffer)
@@ -124,7 +124,8 @@ async def get_file(response: Response, files: List[UploadFile]):
 def draw_fig(response: Response, filename: str):
     response.headers["Access-Control-Allow-Origin"] = "*"
 
-    path = f'C:/Users/maron/qc-data/text/{filename}'
+    #path = f'C:/Users/maron/qc-data/text/{filename}'
+    path = f'C:/Users/Hiro/fastapi/QC-judge/text_folda/{filename}'
     f = open(path, 'r')
     lines = f.readlines()
 
@@ -145,10 +146,8 @@ def draw_fig(response: Response, filename: str):
     x_data = np.linspace(20,80,len(list_))
     y_data = list_
     plt.plot(x_data,y_data,c='black')
-    path_fig = f'C:/Users/maron/qc-data/fig/{filename}.png'
+    #path_fig = f'C:/Users/maron/qc-data/fig/{filename}.png'
+    path_fig = f'C:/Users/Hiro/fastapi/QC-judge/fig/{filename}.png'
     plt.savefig(path_fig)
     plt.gca().clear()
     return path_fig
-
-
-

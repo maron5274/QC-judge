@@ -4,7 +4,9 @@ import axios from 'axios';
 import 'antd/dist/antd.css'
 import { Table } from 'antd';
 import { Image } from 'antd';
+import { Button, Modal } from 'antd';
 import styles from '../styles/Home.module.css'
+import RingLoader from "react-spinners/RingLoader"
 
 export default function Home() {
   const [files, setFiles] = useState([]);
@@ -16,6 +18,20 @@ export default function Home() {
   const [numC, setNumC] = useState('');
   const [numError, setNumError] = useState('');
   const [figSrc, setFigSrc] = useState('error.png');
+  const [progress, setProgress] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   const sendFile = async () => {
     if (files.length === 0) {
@@ -26,12 +42,14 @@ export default function Home() {
       for (let i = 0; i < files.length; i++) {
         formData.append("files", files[i]);
       }
+
       const res = await axios.post('http://localhost:8000/file', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
 
+      setIsModalVisible(false);
       const data = [];
       data.push({ key: 0, samplename: 'TierA', value: '', aico: '' });
       res.data[0].map((list) => {
@@ -56,6 +74,7 @@ export default function Home() {
         data2.push({ key: 0, samplename: list });
       });
       setTableData2(data2);
+
     }
   }
 
@@ -67,6 +86,8 @@ export default function Home() {
       setFigSrc([URL.createObjectURL(res2.data)])
     }
   }
+
+
 
   const columns = [
     {
@@ -129,6 +150,21 @@ export default function Home() {
 
   return (
     <>
+      <div className={styles.modal}>
+        <Modal
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        centered
+        width={500}
+        okButtonProps={{ disabled: true }}
+        cancelButtonProps={{ disabled: true }}
+        >
+        <h1>Screening Now...</h1>
+        <RingLoader color={"#FFBB7A"} size={80}/>
+        </Modal>
+      </div>
+
       <Head>
         <title>HTPI-iQC</title>
       </Head>
@@ -146,7 +182,10 @@ export default function Home() {
             directory=""
             webkitdirectory=""
           />
-          <button onClick={sendFile}>upload</button>
+          <button onClick = {() => {
+            showModal();
+            sendFile();
+          }}>upload</button>
           <p style={{ color: 'red' }}>{errorMessage}</p>
           <h2>　Results</h2>
 
@@ -185,8 +224,8 @@ export default function Home() {
             <div className={styles.figure}>
               <h2>XRD Data(Click sample to show)</h2>
               <Image
-                width={450}
-                height={350}
+                width={900}
+                height={550}
                 src={figSrc}
               />
             </div>
