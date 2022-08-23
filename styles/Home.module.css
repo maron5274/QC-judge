@@ -5,21 +5,20 @@
 }
 
 .body {
-  padding-top: 20px;
+  padding: 20px 0 0 20px;
 }
 
 .tableWrapper {
   width: 50%;
-  padding-left: 10px;
 }
 
 .tableWrapper p {
   font-size: 15px;
-  line-height: 2;
+  line-height: 3;
 }
 
 .tableWrapper Table {
-  padding: 5px;
+  padding: 0px;
   background-color: rgb(235, 235, 235);
   font-size: 15px;
 }
@@ -30,4 +29,29 @@
 
 .figure {
   margin: 0 30px;
+}
+
+.footer{
+  background-color: #2f5167;
+  color: #fff;
+  height: 90px;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footerLogo{
+  font-size: 25px;
+  float: left;
+}
+
+.footerContent {
+  font-size: 20px;
+  float: right;
+
+}
+
+.footerContent ul{
+  list-style-type: none;
 }

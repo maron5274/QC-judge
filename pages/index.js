@@ -98,7 +98,7 @@ export default function Home() {
         return {
           props: {
             style: {
-              background: text == "TierA" || text == "TierB" || text == "TierC" ? "yellow" : "",
+              background: text == "TierA" || text == "TierB" || text == "TierC" ? "lightyellow" : "",
               height: text == "TierA" || text == "TierB" || text == "TierC" ? "1px" : "60px"
             }
           },
@@ -114,7 +114,7 @@ export default function Home() {
         return {
           props: {
             style: {
-              background: text == "" || text == "" || text == "" ? "yellow" : "",
+              background: text == "" || text == "" || text == "" ? "lightyellow" : "",
               height: text == "" || text == "" || text == "" ? "1px" : "60px"
             }
           },
@@ -130,7 +130,7 @@ export default function Home() {
         return {
           props: {
             style: {
-              background: text == "" || text == "" || text == "" ? "yellow" : "",
+              background: text == "" || text == "" || text == "" ? "lightyellow" : "",
               height: text == "" || text == "" || text == "" ? "1px" : "60px"
             }
           },
@@ -166,12 +166,12 @@ export default function Home() {
       </div>
 
       <Head>
-        <title>HTPI-iQC</title>
+        <title>HTPI-iQCs</title>
       </Head>
 
       <main>
         <div className={styles.header}>
-          <h1>HTPI-iQC: High-Throughput Phase Identification to detect iQC</h1>
+          <h1>HTPI-iQCs: High-Throughput Phase Identification to detect iQCs</h1>
         </div>
 
         <div className={styles.body}>
@@ -206,9 +206,7 @@ export default function Home() {
                 }}
               />
 
-              <p>{numA}</p>
-              <p>{numB}</p>
-              <p>{numC}</p>
+              <p>{numA},{numB},{numC}</p>
 
               <Table
                 columns={columns2}
@@ -231,6 +229,17 @@ export default function Home() {
             </div>
           </div>
         </div>
+      <div className={styles.footer}>
+        <div className={styles.footerLogo}>
+          <p>HTPI-iQCs</p>
+        </div>
+        <div className={styles.footerContent}>
+          <ul>
+            <li>Hirotaka Uryu</li>
+            <li>1521512@ed.tus.ac.jp</li>
+          </ul>
+        </div>
+      </div>
       </main>
     </>
   )
