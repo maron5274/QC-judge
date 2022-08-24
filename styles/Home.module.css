@@ -1,11 +1,19 @@
 .header {
-  background-color: rgb(233, 232, 232);
-  color: rgb(226, 62, 62);
+  background-color: #26d0c9;
+  color: white;
   padding: 10px;
+}
+
+.header h1{
+  color: white
 }
 
 .body {
   padding: 20px 0 0 20px;
+}
+
+.body button{
+  margin-right: 50px;
 }
 
 .tableWrapper {
@@ -29,6 +37,7 @@
 
 .figure {
   margin: 0 30px;
+
 }
 
 .footer{
@@ -54,4 +63,8 @@
 
 .footerContent ul{
   list-style-type: none;
+}
+
+.info{
+  margin-left: 10px;
 }

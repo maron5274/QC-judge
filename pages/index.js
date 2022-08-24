@@ -4,7 +4,7 @@ import axios from 'axios';
 import 'antd/dist/antd.css'
 import { Table } from 'antd';
 import { Image } from 'antd';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Space } from 'antd';
 import styles from '../styles/Home.module.css'
 import RingLoader from "react-spinners/RingLoader"
 
@@ -20,6 +20,7 @@ export default function Home() {
   const [figSrc, setFigSrc] = useState('error.png');
   const [progress, setProgress] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -148,6 +149,8 @@ export default function Home() {
     }
   ];
 
+
+
   return (
     <>
       <div className={styles.modal}>
@@ -163,6 +166,7 @@ export default function Home() {
         <h1>Screening Now...</h1>
         <RingLoader color={"#FFBB7A"} size={80}/>
         </Modal>
+
       </div>
 
       <Head>
@@ -185,7 +189,34 @@ export default function Home() {
           <button onClick = {() => {
             showModal();
             sendFile();
-          }}>upload</button>
+          }}>Upload</button>
+
+          <Button type="primary" onClick={() => setModal2Visible(true)}>
+            Manual is here.
+          </Button>
+          <Modal
+           title="Manual"
+            visible={modal2Visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            style={{ top: 40 }}
+            width={1000}
+            onOk={() => setModal2Visible(false)}
+            cancelButtonProps={{ disabled: true }}
+          >
+            <h2>What the service</h2>
+            <p>　You can carry out the detection screening for icosahedral quasicrystal (iQC) phases in powder X-ray diffraction (PXRD) patterns
+               based on trained machine learning models.</p>
+            <h2>How to use</h2>
+            <p>　Select the folder containing the PXRD data in "ファイルを選択" and press the "upload" button. ※Screening may take some time.</p>
+            <p>　If files in selected folder do not match the folllowing standards, they will not be screened and will be shown in the Table: "Error files".</p>
+            <h4>　　Files standards</h4>
+            <p>　　・The first column and second columns should be diffraction angle [deg.] and Intensity [a.u.], respectively.</p>
+            <p>　　　(It does not matter if there is a third and subsequent row.)</p>
+            <p>　　・Diffraction data from 20° ～ 80° must exsit, with their intervals 0.01°.</p>
+            <p>　　・Lines with information other than diffraction angle and Intensity must begin with "#" or "*".</p>
+          </Modal>
+
           <p style={{ color: 'red' }}>{errorMessage}</p>
           <h2>　Results</h2>
 
@@ -223,7 +254,7 @@ export default function Home() {
               <h2>XRD Data(Click sample to show)</h2>
               <Image
                 width={900}
-                height={550}
+                height={600}
                 src={figSrc}
               />
             </div>

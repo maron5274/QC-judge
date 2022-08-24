@@ -145,7 +145,11 @@ def draw_fig(response: Response, filename: str):
 
     x_data = np.linspace(20,80,len(list_))
     y_data = list_
-    plt.plot(x_data,y_data,c='black')
+    fig, ax = plt.subplots()
+    ax.tick_params(labelleft=False)
+    ax.plot(x_data,y_data,c='black')
+    ax.set_xlabel("2θ [deg.]")
+    ax.set_ylabel("Intensity [a.u.]")
     #path_fig = f'C:/Users/maron/qc-data/fig/{filename}.png'
     path_fig = f'C:/Users/Hiro/fastapi/QC-judge/fig/{filename}.png'
     plt.savefig(path_fig)
