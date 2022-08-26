@@ -39,6 +39,7 @@ export default function Home() {
       setErrorMessage('Select data')
     } else {
       setErrorMessage('')
+      showModal();
       let formData = new FormData();
       for (let i = 0; i < files.length; i++) {
         formData.append("files", files[i]);
@@ -187,7 +188,7 @@ export default function Home() {
             webkitdirectory=""
           />
           <button onClick = {() => {
-            showModal();
+
             sendFile();
           }}>Upload</button>
 
@@ -197,11 +198,10 @@ export default function Home() {
           <Modal
            title="Manual"
             visible={modal2Visible}
-            onOk={handleOk}
-            onCancel={handleCancel}
+            onOk={() =>setModal2Visible(false)}
+            onCancel={() =>setModal2Visible(false)}
             style={{ top: 40 }}
             width={1000}
-            onOk={() => setModal2Visible(false)}
             cancelButtonProps={{ disabled: true }}
           >
             <h2>What the service</h2>
