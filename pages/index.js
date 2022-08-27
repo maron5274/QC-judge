@@ -21,6 +21,7 @@ export default function Home() {
   const [progress, setProgress] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
+  aaaaa
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -156,16 +157,16 @@ export default function Home() {
     <>
       <div className={styles.modal}>
         <Modal
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        centered
-        width={500}
-        okButtonProps={{ disabled: true }}
-        cancelButtonProps={{ disabled: true }}
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          centered
+          width={500}
+          okButtonProps={{ disabled: true }}
+          cancelButtonProps={{ disabled: true }}
         >
-        <h1>Screening Now...</h1>
-        <RingLoader color={"#FFBB7A"} size={80}/>
+          <h1>Screening Now...</h1>
+          <RingLoader color={"#FFBB7A"} size={80} />
         </Modal>
 
       </div>
@@ -187,7 +188,7 @@ export default function Home() {
             directory=""
             webkitdirectory=""
           />
-          <button onClick = {() => {
+          <button onClick={() => {
 
             sendFile();
           }}>Upload</button>
@@ -196,17 +197,17 @@ export default function Home() {
             Manual is here.
           </Button>
           <Modal
-           title="Manual"
+            title="Manual"
             visible={modal2Visible}
-            onOk={() =>setModal2Visible(false)}
-            onCancel={() =>setModal2Visible(false)}
+            onOk={() => setModal2Visible(false)}
+            onCancel={() => setModal2Visible(false)}
             style={{ top: 40 }}
             width={1000}
             cancelButtonProps={{ disabled: true }}
           >
             <h2>What the service</h2>
             <p>　You can carry out the detection screening for icosahedral quasicrystal (iQC) phases in powder X-ray diffraction (PXRD) patterns
-               based on trained machine learning models.</p>
+              based on trained machine learning models.</p>
             <h2>How to use</h2>
             <p>　Select the folder containing the PXRD data in "ファイルを選択" and press the "upload" button. ※Screening may take some time.</p>
             <p>　If files in selected folder do not match the folllowing standards, they will not be screened and will be shown in the Table: "Error files".</p>
@@ -260,17 +261,17 @@ export default function Home() {
             </div>
           </div>
         </div>
-      <div className={styles.footer}>
-        <div className={styles.footerLogo}>
-          <p>HTPI-iQCs</p>
+        <div className={styles.footer}>
+          <div className={styles.footerLogo}>
+            <p>HTPI-iQCs</p>
+          </div>
+          <div className={styles.footerContent}>
+            <ul>
+              <li>Hirotaka Uryu</li>
+              <li>1521512@ed.tus.ac.jp</li>
+            </ul>
+          </div>
         </div>
-        <div className={styles.footerContent}>
-          <ul>
-            <li>Hirotaka Uryu</li>
-            <li>1521512@ed.tus.ac.jp</li>
-          </ul>
-        </div>
-      </div>
       </main>
     </>
   )
