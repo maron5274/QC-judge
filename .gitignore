@@ -35,3 +35,5 @@ yarn-error.log*
 out
 model
 apiTest_predict.cpython-37.pyc
+fig
+text_folda
