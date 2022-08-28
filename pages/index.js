@@ -1,6 +1,7 @@
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios';
+import useWebSocket from 'react-use-websocket';
 import 'antd/dist/antd.css'
 import { Table } from 'antd';
 import { Image } from 'antd';
@@ -18,10 +19,11 @@ export default function Home() {
   const [numC, setNumC] = useState('');
   const [numError, setNumError] = useState('');
   const [figSrc, setFigSrc] = useState('error.png');
-  const [progress, setProgress] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
-  aaaaa
+  const [socketUrl, setSocketUrl] = useState('ws://localhost:8000/0');
+  const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+  const [message, setMessage] = useState('');
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -41,45 +43,66 @@ export default function Home() {
     } else {
       setErrorMessage('')
       showModal();
+
+
       let formData = new FormData();
       for (let i = 0; i < files.length; i++) {
         formData.append("files", files[i]);
       }
-
-      const res = await axios.post('http://localhost:8000/file', formData, {
+      setMessage('uploading...');
+      const res = await axios.post('http://localhost:8000/uploadfile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
 
-      setIsModalVisible(false);
-      const data = [];
-      data.push({ key: 0, samplename: 'TierA', value: '', aico: '' });
-      res.data[0].map((list) => {
-        data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
-      });
-      data.push({ key: 0, samplename: 'TierB', value: '', aico: '' });
-      res.data[1].map((list) => {
-        data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
-      });
-      data.push({ key: 0, samplename: 'TierC', value: '', aico: '' });
-      res.data[2].map((list) => {
-        data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
-      });
-      setTableData(data);
-      setNumA(`　TierA> ${res.data[3]} data`)
-      setNumB(`　TierB> ${res.data[4]} data`)
-      setNumC(`　TierC> ${res.data[5]} data`)
-      setNumError(`　Error files> ${res.data[6].length} data`)
+      setSocketUrl('ws://localhost:8000/ws');
+      const filenameObject = {
+        filenames: res.data
+      }
+      const filenameJson = JSON.stringify(filenameObject);
+      sendMessage(filenameJson);
 
-      const data2 = [];
-      res.data[6].map((list) => {
-        data2.push({ key: 0, samplename: list });
-      });
-      setTableData2(data2);
+      // res.data.map((filename) => {
+      //   sendMessage(filename);
+      // })
+      // setIsModalVisible(false);
+      // const data = [];
+      // data.push({ key: 0, samplename: 'TierA', value: '', aico: '' });
+      // res.data[0].map((list) => {
+      //   data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
+      // });
+      // data.push({ key: 0, samplename: 'TierB', value: '', aico: '' });
+      // res.data[1].map((list) => {
+      //   data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
+      // });
+      // data.push({ key: 0, samplename: 'TierC', value: '', aico: '' });
+      // res.data[2].map((list) => {
+      //   data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
+      // });
+      // setTableData(data);
+      // setNumA(`　TierA> ${res.data[3]} data`)
+      // setNumB(`　TierB> ${res.data[4]} data`)
+      // setNumC(`　TierC> ${res.data[5]} data`)
+      // setNumError(`　Error files> ${res.data[6].length} data`)
+
+      // const data2 = [];
+      // res.data[6].map((list) => {
+      //   data2.push({ key: 0, samplename: list });
+      // });
+      // setTableData2(data2);
 
     }
   }
+
+  useEffect(() => {
+    if (lastMessage) {
+      if (lastMessage.data.slice(-1) !== "%") {
+        let object_ = JSON.parse(lastMessage.data)
+        console.log(object_);
+      }
+    }
+  }, [lastMessage]);
 
   const drawFig = async (record) => {
     if (record.samplename.indexOf('Tier') !== 0) {
@@ -89,8 +112,6 @@ export default function Home() {
       setFigSrc([URL.createObjectURL(res2.data)])
     }
   }
-
-
 
   const columns = [
     {
@@ -151,7 +172,15 @@ export default function Home() {
     }
   ];
 
-
+  const getMessage = () => {
+    if (lastMessage) {
+      if (lastMessage.data.slice(-1) == "%") {
+        return lastMessage.data;
+      }
+    } else {
+      return message;
+    }
+  }
 
   return (
     <>
@@ -219,6 +248,8 @@ export default function Home() {
           </Modal>
 
           <p style={{ color: 'red' }}>{errorMessage}</p>
+
+          <p>{getMessage()}</p>
           <h2>　Results</h2>
 
           <div className={styles.result}>
