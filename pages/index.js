@@ -24,7 +24,7 @@ export default function Home() {
   const [socketUrl, setSocketUrl] = useState('ws://localhost:8000/0');
   const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
   const [message, setMessage] = useState('');
-
+  const [progress, setProgress] = useState('');
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -63,35 +63,6 @@ export default function Home() {
       const filenameJson = JSON.stringify(filenameObject);
       sendMessage(filenameJson);
 
-      // res.data.map((filename) => {
-      //   sendMessage(filename);
-      // })
-      // setIsModalVisible(false);
-      // const data = [];
-      // data.push({ key: 0, samplename: 'TierA', value: '', aico: '' });
-      // res.data[0].map((list) => {
-      //   data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
-      // });
-      // data.push({ key: 0, samplename: 'TierB', value: '', aico: '' });
-      // res.data[1].map((list) => {
-      //   data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
-      // });
-      // data.push({ key: 0, samplename: 'TierC', value: '', aico: '' });
-      // res.data[2].map((list) => {
-      //   data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
-      // });
-      // setTableData(data);
-      // setNumA(`　TierA> ${res.data[3]} data`)
-      // setNumB(`　TierB> ${res.data[4]} data`)
-      // setNumC(`　TierC> ${res.data[5]} data`)
-      // setNumError(`　Error files> ${res.data[6].length} data`)
-
-      // const data2 = [];
-      // res.data[6].map((list) => {
-      //   data2.push({ key: 0, samplename: list });
-      // });
-      // setTableData2(data2);
-
     }
   }
 
@@ -99,7 +70,31 @@ export default function Home() {
     if (lastMessage) {
       if (lastMessage.data.slice(-1) !== "%") {
         let object_ = JSON.parse(lastMessage.data)
-        console.log(object_);
+        setIsModalVisible(false);
+        const data = [];
+        data.push({ key: 0, samplename: 'TierA', value: '', aico: '' });
+        object_.A.map((list) => {
+           data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
+         });
+         data.push({ key: 0, samplename: 'TierB', value: '', aico: '' });
+         object_.B.map((list) => {
+           data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
+         });
+         data.push({ key: 0, samplename: 'TierC', value: '', aico: '' });
+         object_.C.map((list) => {
+           data.push({ key: 0, samplename: list[0], value: list[1], aico: list[2] });
+         });
+         setTableData(data);
+         setNumA(`　TierA> ${object_.numA} data`)
+         setNumB(`　TierB> ${object_.numB} data`)
+         setNumC(`　TierC> ${object_.numC} data`)
+         setNumError(`　Error files> ${object_.error.length} data`)
+
+         const data2 = [];
+         object_.error.map((list) => {
+           data2.push({ key: 0, samplename: list });
+         });
+         setTableData2(data2);
       }
     }
   }, [lastMessage]);
@@ -195,6 +190,7 @@ export default function Home() {
           cancelButtonProps={{ disabled: true }}
         >
           <h1>Screening Now...</h1>
+          <h3>Progress>　{getMessage()}</h3>
           <RingLoader color={"#FFBB7A"} size={80} />
         </Modal>
 
@@ -249,7 +245,7 @@ export default function Home() {
 
           <p style={{ color: 'red' }}>{errorMessage}</p>
 
-          <p>{getMessage()}</p>
+
           <h2>　Results</h2>
 
           <div className={styles.result}>

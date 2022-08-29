@@ -35,7 +35,7 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.send_text('0%')
     filenames = data['filenames']
 
-    path_model = 'C:/Users/maron/qc-data/models/'
+    path_model = 'D:/MLmodels_for_PXRDidentification/PiQC_detection_screening/Models/'
     error_files = []
     files_dic = {}
 
@@ -46,7 +46,7 @@ async def websocket_endpoint(websocket: WebSocket):
             lines = f.readlines()
             list_ = []
             for i in lines:
-                if i[0] == "*" or i[0] == '#':
+                if i[0] in ['#', '*', ' ']:
                     continue
                 try:
                     a = i[:-1].split('\t')
@@ -57,7 +57,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 if 20 <= tth <80:
                     Intensity = float(a[1])
                     list_.append(Intensity)
-            
+
             data_num = 1
             x_test = np.array([list_], np.float64)
             x_test = x_test-np.min(x_test, axis = 1).reshape(data_num, 1)
@@ -94,8 +94,9 @@ async def websocket_endpoint(websocket: WebSocket):
                     dic_detection['A'].append([file_name, pred, round(aico+aico_delta*i, 3)])
             except:
                 error_files.append(file_name)
-        await websocket.send_text(str((i+1)*100/model_num)+'%')
-        
+        progress = round((i+1)*100/model_num, 3)
+        await websocket.send_text(str(progress)+'%')
+
 
     sortsecond = lambda val : val[1]
     dicA_sorted = sorted(dic_detection['A'], key = sortsecond, reverse = True)
@@ -125,20 +126,14 @@ async def websocket_endpoint(websocket: WebSocket):
             dic_None[i] = -1
 
     num_Adata, num_Bdata, num_Cdata = len(dicA_sorted)+dic_None['A'], len(dicB_sorted)+dic_None['B'], len(dicC_sorted)+dic_None['C']
-    AJson = json.dumps({"A":list(dicA_sorted)})
-    BJson = json.dumps({"B":list(dicB_sorted)})
-    CJson = json.dumps({"C":list(dicC_sorted)})
-    numJson = json.dumps({"numA" : num_Adata, "numB" : num_Bdata, "numC" : num_Cdata})
-    hogehoge = list(set(error_files))
-    errorJson = json.dumps({"error" : hogehoge}) 
     await websocket.send_json({"A" : dicA_sorted, "B": dicB_sorted, "C" : dicC_sorted, "error" : list(set(error_files)), "numA" : num_Adata, "numB" : num_Bdata, "numC" : num_Cdata})
 
 @app.post('/file')
 async def get_file(response: Response, files: List[UploadFile]):
     response.headers["Access-Control-Allow-Origin"] = "*"
 
-    path_model = 'C:/Users/maron/qc-data/models/'
-    #path_model = 'D:/MLmodels_for_PXRDidentification/PiQC_detection_screening/Models/'
+    #path_model = 'C:/Users/maron/qc-data/models/'
+    path_model = 'D:/MLmodels_for_PXRDidentification/PiQC_detection_screening/Models/'
 
     error_files = []
 
