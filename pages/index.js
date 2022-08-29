@@ -179,7 +179,7 @@ export default function Home() {
 
   return (
     <>
-      <div className={styles.modal}>
+      <div className={styles.modal1}>
         <Modal
           visible={isModalVisible}
           onOk={handleOk}
@@ -189,9 +189,17 @@ export default function Home() {
           okButtonProps={{ disabled: true }}
           cancelButtonProps={{ disabled: true }}
         >
-          <h1>Screening Now...</h1>
-          <h3>Progress>　{getMessage()}</h3>
-          <RingLoader color={"#FFBB7A"} size={80} />
+
+          <div className={styles.anime}>
+            <RingLoader color={"#FFBB7A"} size={80} />
+          </div>
+          <div className={styles.modal1}>
+            <p>　</p>
+            <h1>Screening Now...</h1>
+            <p>　</p>
+            <h2>Progress>　{getMessage()}</h2>
+          </div>
+
         </Modal>
 
       </div>

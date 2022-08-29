@@ -40,6 +40,19 @@
 
 }
 
+.anime h1{
+  margin-top: 20px;
+}
+
+.modal1 p{
+  font-size: 3px;
+}
+
+.anime{
+  position: absolute;
+  padding-left: 240px;
+}
+
 .footer{
   background-color: #2f5167;
   color: #fff;

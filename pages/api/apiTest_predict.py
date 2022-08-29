@@ -73,7 +73,7 @@ async def websocket_endpoint(websocket: WebSocket):
     aico_delta = 0.025
     dic_detection = {"A": [], "B": [], "C": []}
     list__=[]
-    model_num = 2
+    model_num = 4
     for i in range(model_num):
         tf.keras.backend.clear_session()
         load_model = tf.keras.models.load_model(path_model+str(round(aico+aico_delta*i, 3))+'_'+str(round(aico+aico_delta*(i+1), 3))+'__'+str(12)+'__'+str(256), compile=False)
